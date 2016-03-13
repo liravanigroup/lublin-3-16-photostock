@@ -5,8 +5,18 @@ package pl.com.bottega.photostock.sales.model;
  */
 public class LightBox {
 
-    public void add(Picture picture){
+    private String name;
+    private Client owner;
+    private Picture[] items = new Picture[2];
+    private boolean closed = false;
 
+    public void close(){
+        this.closed = true;
+    }
+
+    public void changeName(String newName){
+        if (!closed)
+            this.name = newName;
     }
 
     /*
@@ -20,5 +30,13 @@ public class LightBox {
      */
     public void remove(Picture pictureToRemove){
 
+    }
+
+    public void add(Picture pictureToRemove){
+
+    }
+
+    public String getName() {
+        return name;
     }
 }
