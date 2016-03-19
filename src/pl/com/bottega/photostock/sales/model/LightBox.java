@@ -7,8 +7,12 @@ public class LightBox {
 
     private String name;
     private Client owner;
-    private Picture[] items = new Picture[2];
+    private Picture[] items = new Picture[5];
     private boolean closed = false;
+
+    public LightBox(Client owner){
+        this.owner = owner;
+    }
 
     public void close(){
         this.closed = true;
@@ -32,7 +36,37 @@ public class LightBox {
 
     }
 
-    public void add(Picture pictureToRemove){
+    public void add(Picture pictureToAdd){
+        //sprawdzamy czy items zawiera już ten picture
+
+        int coursor = 0;
+
+        while (coursor < items.length){
+            Picture pic = items[coursor];
+            if (pic != null){
+                String nr1 = pic.getNumber();
+                String nr2 = pictureToAdd.getNumber();
+
+                if (nr1.equals(nr2)){
+                    throw new IllegalArgumentException("lightbox already contains picture " + pictureToAdd.getNumber());
+                }
+            }
+
+            //!!!!!
+            coursor++;
+        }
+
+        coursor = 0;
+
+        while(true){
+            Picture reference = items[coursor];
+            if (reference == null){
+                items[coursor] = pictureToAdd;
+                break;//break  !!!!!
+            }
+            coursor++;//!!!!!
+        }
+
 
     }
 

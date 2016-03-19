@@ -11,7 +11,7 @@ import pl.com.bottega.photostock.sales.model.Reservation;
 public class ReservationTestConsoleApp {
     public static void main(String[] args) {
         Picture mustang = new Picture("nr1", 10, new String[]{"ford", "mustang"}, true);
-        Client takiSobieClient = new Client("Zegrzysław", "tajny", false, 20, 0);
+        Client takiSobieClient = new Client("Zegrzysław", "tajny", 0);
 
         Reservation reservation = new Reservation(takiSobieClient);
         reservation.add(mustang);

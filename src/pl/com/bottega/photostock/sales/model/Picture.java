@@ -39,4 +39,8 @@ public class Picture {
     public void cancel() {
         isAvailabe = false;
     }
+
+    public String getNumber() {
+        return number;
+    }
 }
