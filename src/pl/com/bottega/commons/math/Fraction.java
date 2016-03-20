@@ -29,9 +29,30 @@ public class Fraction {
     }
 
     public Fraction(int nominator) {
-        //this(nominator, 10);   nie chcemy walidować (sprawdzać poprawność) liczby 10
+        //this(nominator, 10);   //nie chcemy walidować (sprawdzać poprawność) liczby 10
         this.nominator = nominator;
         this.denominator = 10;
+    }
+
+    /**
+     *
+     * @param literal ułamek w preprezentacji licznik/mianownik, np: 3/4
+     */
+    public Fraction(String literal) throws IllegalArgumentException{
+        String[] parts = literal.split("/");
+        if (parts.length != 2)
+            throw new IllegalArgumentException("To nie jest ułamek");
+
+        try {
+            this.nominator = Integer.parseInt(parts[0]);
+            this.denominator = Integer.parseInt(parts[1]);
+            if (this.denominator == 0)
+                throw new IllegalArgumentException("Zero w mianowniku jest niedozwolone");
+        }
+        catch(NumberFormatException ex){//nie musimy przepakować tego, mozemy rzucić NFE
+            throw new IllegalArgumentException("To nie jest ułamek", ex);
+            //System.out.println("dskjbvakjsdbvjkhsdavb");
+        }
     }
 
     public Fraction add(Fraction addend) {

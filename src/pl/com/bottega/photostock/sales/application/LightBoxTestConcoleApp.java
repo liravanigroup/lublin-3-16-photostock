@@ -14,11 +14,26 @@ public class LightBoxTestConcoleApp {
 
         Picture lumberJack = new Picture("nr1", 2, null, true);
         Picture kitty = new Picture("nr2", 2, null, true);
+        //Picture lumberJack2 = new Picture("nr1", 2, null, true);
 
-        lightBoxJanusza.add(lumberJack);
-        lightBoxJanusza.add(kitty);
+        try {
+            lightBoxJanusza.add(lumberJack);
+            lightBoxJanusza.close();//!!!!!!
+            lightBoxJanusza.add(kitty);
+            lightBoxJanusza.add(lumberJack);
+        }
+        catch(IllegalStateException skucha){
+            System.out.println("nie udało się " + skucha.getLocalizedMessage());
+        }
+        catch(IllegalArgumentException ex){
+            //..
+        }
+        finally{//przykład, kod, który wykona się niezależnie od tego czy był wyjątek czy nie
+            System.out.println("fajnie że żyjesz");
+        }
 
-        lightBoxJanusza.add(lumberJack);
+        int count = lightBoxJanusza.getItemsCount();
+        System.out.println("ilosc elementow " + count);
 
     }
 }

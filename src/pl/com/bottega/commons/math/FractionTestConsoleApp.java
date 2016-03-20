@@ -10,11 +10,9 @@ import static pl.com.bottega.commons.math.Fraction.ZERO;
 public class FractionTestConsoleApp {
     public static void main(String[] args){
         Fraction f1;
-        Fraction f2;
-        f2 = new Fraction(2);
 
         try {
-            f1 = new Fraction(1, 0);
+            f1 = new Fraction("1/0");
         }
         catch(IllegalArgumentException ex){
             System.out.println("Złe dane wejściowe! " + ex.getMessage());

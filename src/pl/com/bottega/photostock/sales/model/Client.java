@@ -11,6 +11,7 @@ public class Client {
     private double debt;
     private double amount;
     private double creditLimit;
+    private boolean active = true;
 
     public Client(String name, String address, boolean isVip,double debt, double amount, double creditLimit) {
         this.name = name;
@@ -61,5 +62,9 @@ public class Client {
 
     public double getSaldo() {
         return amount - debt;
+    }
+
+    public boolean isActive() {
+        return active;
     }
 }
