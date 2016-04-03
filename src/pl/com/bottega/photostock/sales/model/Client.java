@@ -67,4 +67,8 @@ public class Client {
     public boolean isActive() {
         return active;
     }
+
+    public String introducte(){
+        return name;// + " - " + status.getPolishString();
+    }
 }

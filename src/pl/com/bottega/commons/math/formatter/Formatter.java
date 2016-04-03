@@ -8,6 +8,11 @@ import java.util.List;
  * Created by Slawek on 02/04/16.
  */
 public class Formatter {
+
+    public enum FormattingLanguage {
+        PL, EN;
+    }
+
     private List<Byte> digits = new ArrayList<>();
     private boolean godMode = true;
 
@@ -57,7 +62,7 @@ public class Formatter {
      * @param lang
      * @return dla 123 zwraca jeden dwa trzy
      */
-    public String[] formatDigits(String lang) {
+    public String[] formatDigits(FormattingLanguage lang) {
         String[] result = new String[digits.size()];
 
         int nr = 0;
@@ -92,19 +97,20 @@ public class Formatter {
         {"zero", "one", "two"}//TODO dodać
     };
 
-    private String generteDigit2(Byte digit, String lang){
+    private String generteDigit2(Byte digit, FormattingLanguage lang){
+        /*
         byte langNr;
         switch(lang){
-            case "pl":
+            case PL:
                 langNr = 0;
                 break;
-            case "en":
+            case EN:
                 langNr = 1;
                 break;
             default:
                 throw new IllegalArgumentException(lang + " is not supported");
-        }
-        return DICTIONARY[langNr][digit];
+        }*/
+        return DICTIONARY[lang.ordinal()][digit];
     }
 
     private String generteDigit(Byte digit, String lang){

@@ -2,6 +2,9 @@ package pl.com.bottega.photostock.sales.application;
 
 
 import pl.com.bottega.photostock.sales.model.*;
+import pl.com.bottega.photostock.sales.model.products.Picture;
+
+import java.util.List;
 
 /**
  * Created by Slawek on 12/03/16.
@@ -52,7 +55,7 @@ public class ConcoleApplication {
 
         if (canAfford){
             client.charge(offerTotalCost, "Za zdjęcia");
-            Picture[] items = offer.getItems();
+            List<Product> items = offer.getItems();
             Purchase purchase = new Purchase(client, items);
         }
         else{

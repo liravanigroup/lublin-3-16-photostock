@@ -1,6 +1,8 @@
 package pl.com.bottega.photostock.sales.model;
 
-import java.util.ArrayList;
+import pl.com.bottega.photostock.sales.model.products.Picture;
+
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -10,7 +12,7 @@ public class LightBox {
 
     private String name;
     private Client owner;
-    private List<Picture> items = new ArrayList<>();
+    private List<Picture> items = new LinkedList<>();
     private boolean closed = false;
 
     public LightBox(Client owner){

@@ -1,25 +1,38 @@
 package pl.com.bottega.photostock.sales.model;
 
+import pl.com.bottega.photostock.sales.model.products.Picture;
+
+import java.util.List;
+
 /**
  * Created by Slawek on 12/03/16.
  */
 public class Offer {
 
-    private Picture[] items;
+    private final Client owner;
+    private List<Product> items;
 
-    public Offer(Picture[] items){
+    double totalCost;
+
+    public Offer(Client owner, List<Product> items) {
         this.items = items;
+        this.owner = owner;
+        this.totalCost = calculateTotalCost();
     }
 
-    public double getTotalCost() {
+    private double calculateTotalCost() {
         return 0;//TODO
     }
 
-    public int getItemsCount(){
-        return 0; //TODO
+    public double getTotalCost() {
+        return totalCost;
     }
 
-    public Picture[] getItems() {
+    public int getItemsCount(){
+        return items.size();
+    }
+
+    public List<Product> getItems() {
         return items;
     }
 }

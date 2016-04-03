@@ -30,7 +30,7 @@ public class FormatterConsoleApplication {
 
     private static void shouldFormatDigits(){
         Formatter formatter = new Formatter(123456789123456789l);
-        String[] digits = formatter.formatDigits("pl");
+        String[] digits = formatter.formatDigits(Formatter.FormattingLanguage.PL);
         System.out.println(Arrays.toString(digits));
     }
 
