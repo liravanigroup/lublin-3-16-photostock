@@ -36,7 +36,21 @@ public class Money {
         return null;//TODO
     }
 
-    public boolean equals(Object obj){
-        return false;//TODO
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Money money = (Money) o;
+
+        if (!value.equals(money.value)) return false;
+        return currency.equals(money.currency);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = value.hashCode();
+        result = 31 * result + currency.hashCode();
+        return result;
     }
 }
