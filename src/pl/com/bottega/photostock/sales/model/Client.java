@@ -8,12 +8,12 @@ public class Client {
     private String name;
     private String address;
     private boolean isVip;
-    private double debt;
-    private double amount;
-    private double creditLimit;
+    private Money debt;
+    private Money amount;
+    private Money creditLimit;
     private boolean active = true;
 
-    public Client(String name, String address, boolean isVip,double debt, double amount, double creditLimit) {
+    public Client(String name, String address, boolean isVip, Money debt, Money amount, Money creditLimit) {
         this.name = name;
         this.address = address;
         this.isVip = isVip;
@@ -22,46 +22,46 @@ public class Client {
         this.creditLimit = creditLimit;
     }
 
-    public Client(String name, String address, double creditLimit) {
-        this(name, address, false, 0, 0, creditLimit);
+    public Client(String name, String address, Money creditLimit) {
+        this(name, address, false, new Money(0), new Money(0), creditLimit);
     }
 
-    public boolean canAfford(double price) {
+    public boolean canAfford(Money price) {
         //jeżeli jest VIP
             //saldo + limit >= amount
         //nie jest VIP
             //saldo >= amount
 
         if (isVip){
-            double purchasePotential = this.amount + (this.creditLimit - this.debt);
-            return purchasePotential >= price;
+            Money purchasePotential = this.amount.add(this.creditLimit.substract(this.debt));
+            return purchasePotential.ge(price);
         }
         else{
-            return this.amount >= price;
+            return this.amount.ge(price);
         }
     }
 
 
-    public void charge(double price, String cause) {
+    public void charge(Money price, String cause) {
         if (canAfford(price)){
-            this.amount -= price;
-            if (this.amount < 0){
-                this.debt -= amount;
-                this.amount = 0;
+            this.amount = this.amount.substract(price);
+            if (this.amount.lt(this.amount.getZero())){
+                this.debt = this.debt.substract(amount);
+                this.amount = this.amount.getZero();
             }
         }
     }
 
-    public void recharge(double quantity) {
-        this.debt -= quantity;
-        if (this.debt < 0){
-            this.amount -= this.debt;
-            this.debt = 0;
+    public void recharge(Money quantity) {
+        this.debt = this.debt.substract(quantity);
+        if (this.debt.lt(this.debt.getZero())){
+            this.amount = this.amount.substract(this.debt);
+            this.debt = this.debt.getZero();
         }
     }
 
-    public double getSaldo() {
-        return amount - debt;
+    public Money getSaldo() {
+        return amount.substract(debt);
     }
 
     public boolean isActive() {

@@ -15,16 +15,16 @@ public class ConcoleApplication {
 
         //=====symulcja dostępu do bazy danych===================
 
-        Client client = new Client("Kowalski", "ul x", 100); //klient posiada 100 creditów
+        Client client = new Client("Kowalski", "ul x", new Money(100)); //klient posiada 100 creditów
 
         //zdjęcia kosztują w sumie 17 creditów
 
         Picture pic1 = new Picture(
-                "nr1", 2, new String[]{"piła", "drewno"}, false);
+                "nr1", new Money(2), new String[]{"piła", "drewno"}, false);
         Picture pic2 = new Picture(
-                "nr2", 5, new String[]{"pies", "niebo"}, true);
+                "nr2", new Money(5), new String[]{"pies", "niebo"}, true);
         Picture pic3 = new Picture(
-                "nr3", 10, new String[]{"ford", "mustang"}, true);
+                "nr3", new Money(10), new String[]{"ford", "mustang"}, true);
 
         Reservation reservation = new Reservation(client);
 
@@ -50,7 +50,7 @@ public class ConcoleApplication {
         System.out.println("Ilość pozycji oferty: " + count); //powinny być 1, bo już d zdjęcia są niedostępne
 
 
-        double offerTotalCost = offer.getTotalCost();
+        Money offerTotalCost = offer.getTotalCost();
         boolean canAfford = client.canAfford(offerTotalCost);
 
         if (canAfford){

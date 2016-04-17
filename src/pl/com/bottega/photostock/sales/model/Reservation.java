@@ -1,13 +1,11 @@
 package pl.com.bottega.photostock.sales.model;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by Slawek on 12/03/16.
  */
-public class Reservation {
+public class Reservation extends Object{
 
     private Client owner;
     private List<Product> items = new LinkedList<>();
@@ -16,10 +14,11 @@ public class Reservation {
         this.owner = owner;
     }
 
-    public void add(Product product){
+    public void add(Product product) throws ProductNotAvailableException, IllegalArgumentException{
         //....
         if (!product.isAvailable())
-            throw new IllegalArgumentException("product is not available");
+            throw new ProductNotAvailableException(
+                    "Trying to reserve", product.getNumber(), Reservation.class);
         if (items.contains(product))
             throw new IllegalArgumentException("product is duplicated");
 
@@ -40,6 +39,9 @@ public class Reservation {
                 result.add(product);
             }
         }
+
+        Comparator<Product> comparator = new PriceAndNameProductComparator();
+        Collections.sort(result, comparator);
 
         return new Offer(owner, result);
     }

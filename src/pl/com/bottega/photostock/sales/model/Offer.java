@@ -12,19 +12,27 @@ public class Offer {
     private final Client owner;
     private List<Product> items;
 
-    double totalCost;
+    private Money totalCost;
 
     public Offer(Client owner, List<Product> items) {
+        if (items.size() == 0)
+            throw new IllegalArgumentException("Items can't be empty");
+
         this.items = items;
         this.owner = owner;
         this.totalCost = calculateTotalCost();
     }
 
-    private double calculateTotalCost() {
-        return 0;//TODO
+    private Money calculateTotalCost() {
+        Money sum = items.get(0).calculatePrice().getZero();//aby ustalić walutę
+
+        for(Product p : items)
+            sum = sum.add(p.calculatePrice());
+
+        return sum;
     }
 
-    public double getTotalCost() {
+    public Money getTotalCost() {
         return totalCost;
     }
 

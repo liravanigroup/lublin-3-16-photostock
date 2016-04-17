@@ -184,4 +184,23 @@ public class Fraction {
             throw new IllegalStateException("Zero can not be reversed", ex);
         }
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Fraction)) return false;
+
+        Fraction fraction = (Fraction) o;
+
+        if (nominator != fraction.nominator) return false;
+        return denominator == fraction.denominator;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = nominator;
+        result = 31 * result + denominator;
+        return result;
+    }
 }
