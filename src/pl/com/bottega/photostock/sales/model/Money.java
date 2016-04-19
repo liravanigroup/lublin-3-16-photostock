@@ -58,6 +58,11 @@ public class Money {
         return result;
     }
 
+    @Override
+    public String toString() {
+        return value + " " + currency;
+    }
+
     /**
      *
      * @param val
