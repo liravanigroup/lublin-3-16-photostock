@@ -5,7 +5,7 @@
         function create() {
             var client  = $("#clientNr").val();
 
-            $.get('http://localhost:8080/stock/create', {
+            $.get('create', {
                 clientNr: client
             }, function(responseText) {
                 $('#reservationNr').val(responseText);
@@ -18,7 +18,7 @@
             var prod  = $("#prodNr").val();
             var res = $("#reservationNr").val();
 
-            $.get('http://localhost:8080/stock/purchase', {
+            $.get('purchase', {
                 prodNr : prod,
                 resNr: res
             }, function(responseText) {
@@ -32,7 +32,7 @@
 </head>
 
 <body>
-<form  action="http://localhost:8080/stock/s" method="get">
+<form  method="get">
     Nr klienta: <input type="text" id="clientNr"/>
     <input type="button" value="Stworz rezerwacje" onclick="create()"/>
     Nr rezerwacji: <input type="text" id="reservationNr" disabled/>

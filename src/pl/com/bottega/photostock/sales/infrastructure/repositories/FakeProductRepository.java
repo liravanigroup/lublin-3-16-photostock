@@ -17,11 +17,12 @@ public class FakeProductRepository implements ProductRepository {
 
     static{
         Picture p1 = new Picture("nr1", new Money(10), new String[]{"ford", "mustang"}, true);
-        Picture p2 = new Picture("nr2", new Money(10), new String[]{"fiat", "multipla"}, true);
+        Picture p2 = new Picture("nr2", new Money(20), new String[]{"fiat", "multipla"}, true);
+        Picture p3 = new Picture("nr3", new Money(20), new String[]{"bmw", "m6"}, false);
 
         fakeDatabase.put(p1.getNumber(), p1);
         fakeDatabase.put(p2.getNumber(), p2);
-
+        fakeDatabase.put(p3.getNumber(), p3);
 
     }
 
