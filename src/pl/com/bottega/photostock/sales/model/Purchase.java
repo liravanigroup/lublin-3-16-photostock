@@ -14,11 +14,21 @@ public class Purchase {
 
     private Date createDate;
 
+    private String number;
+
     private List<Product> items;
 
     public Purchase(Client owner, List<Product> items) {
         this.owner = owner;
         this.items = items;
         this.createDate = new Date();
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
     }
 }

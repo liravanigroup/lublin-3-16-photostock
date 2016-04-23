@@ -17,7 +17,7 @@ public class ReservationTestConsoleApp {
 
         //Clip wlaczamyNiskieCeny = new Clip();
 
-        Client takiSobieClient = new Client("Zegrzysław", "tajny", new Money(0));//TODO pobrac z repo
+        Client takiSobieClient = new Client("nr1", "Zegrzysław", "tajny", new Money(0));//TODO pobrac z repo
 
         Reservation reservation = new Reservation(takiSobieClient);//TODO pobrac z repo
         //reservation.add(mustang);

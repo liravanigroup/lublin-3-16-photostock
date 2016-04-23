@@ -12,8 +12,10 @@ public class Client {
     private Money amount;
     private Money creditLimit;
     private boolean active = true;
+    private String number;
 
-    public Client(String name, String address, boolean isVip, Money debt, Money amount, Money creditLimit) {
+    public Client(String number, String name, String address, boolean isVip, Money debt, Money amount, Money creditLimit) {
+        this.number = number;
         this.name = name;
         this.address = address;
         this.isVip = isVip;
@@ -22,8 +24,8 @@ public class Client {
         this.creditLimit = creditLimit;
     }
 
-    public Client(String name, String address, Money creditLimit) {
-        this(name, address, false, new Money(0), new Money(0), creditLimit);
+    public Client(String number, String name, String address, Money creditLimit) {
+        this(number, name, address, false, new Money(0), new Money(0), creditLimit);
     }
 
     public boolean canAfford(Money price) {
@@ -70,5 +72,13 @@ public class Client {
 
     public String introducte(){
         return name;// + " - " + status.getPolishString();
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
     }
 }

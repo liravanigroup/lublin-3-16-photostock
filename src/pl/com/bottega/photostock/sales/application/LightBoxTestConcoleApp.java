@@ -10,7 +10,7 @@ import pl.com.bottega.photostock.sales.model.products.Picture;
  */
 public class LightBoxTestConcoleApp {
     public static void main(String[] args){
-        Client client = new Client("Pan janusz", "tajny adres", new Money(20));
+        Client client = new Client("nr1", "Pan janusz", "tajny adres", new Money(20));
         LightBox lightBoxJanusza = new LightBox(client);
 
         Picture lumberJack = new Picture("nr1", new Money(2), null, true);

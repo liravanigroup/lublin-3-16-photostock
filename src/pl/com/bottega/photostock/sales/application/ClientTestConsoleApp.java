@@ -8,7 +8,7 @@ import pl.com.bottega.photostock.sales.model.Money;
  */
 public class ClientTestConsoleApp{
     public static void main(String[] args) {
-        Client panJanusz = new Client("Janusz", "ksiezyc", false, new Money(4), new Money(10), new Money(20));
+        Client panJanusz = new Client("nr1", "Janusz", "ksiezyc", false, new Money(4), new Money(10), new Money(20));
         panJanusz.recharge(new Money(10));
         if (panJanusz.canAfford(new Money(12))) {
             panJanusz.charge(new Money(12), "za coś");

@@ -6,7 +6,7 @@ import java.util.*;
  * Created by Slawek on 12/03/16.
  */
 public class Reservation extends Object{
-
+    private String number;
     private Client owner;
     private List<Product> items = new LinkedList<>();
 
@@ -48,5 +48,17 @@ public class Reservation extends Object{
 
     public int getItemsCount() {
         return items.size();
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public Client getOwner() {
+        return owner;
     }
 }
