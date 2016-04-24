@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by Slawek on 12/03/16.
  */
-public class LightBox {
+public class LightBox implements Cloneable{
 
     private String name;
     private Client owner;
@@ -96,5 +96,12 @@ public class LightBox {
 
     public int getItemsCount() {
         return items.size();
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        LightBox result = (LightBox) super.clone();
+        result.items = (List)((LinkedList)items).clone();
+        return result;
     }
 }

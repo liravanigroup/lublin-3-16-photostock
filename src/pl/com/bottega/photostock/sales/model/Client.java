@@ -1,5 +1,8 @@
 package pl.com.bottega.photostock.sales.model;
 
+import pl.com.bottega.photostock.sales.model.client.CanAffordStrategy;
+import pl.com.bottega.photostock.sales.model.client.Payer;
+
 /**
  * Created by Slawek on 12/03/16.
  */
@@ -70,7 +73,7 @@ public class Client {
         return active;
     }
 
-    public String introducte(){
+    public String introduce(){
         return name;// + " - " + status.getPolishString();
     }
 
