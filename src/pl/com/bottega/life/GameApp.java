@@ -8,11 +8,11 @@ import java.io.IOException;
 public class GameApp {
 
     public static void main(String[] args) throws InterruptedException, IOException {
-        GameEngine engine = new GameEngine(45, 150, 0.25);
+        GameEngine engine = new GameEngine(45, 150, 0.25);//szerokość, wysokość, procent losowego zapełnienia komórek na starcie
 
         while(true){
             print(engine);
-            Thread.sleep(30);
+            Thread.sleep(30);//chwila dla kory wzrokowej
             clearScreen();
             engine.nextStep();
         }
