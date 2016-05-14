@@ -7,4 +7,6 @@ public interface ReservationRepository {
     void save(Reservation reservation);
 
     Reservation load(String reservatonNr);
+
+    Reservation findOpenedPer(Client client);
 }

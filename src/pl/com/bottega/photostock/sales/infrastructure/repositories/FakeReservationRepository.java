@@ -1,10 +1,8 @@
 package pl.com.bottega.photostock.sales.infrastructure.repositories;
 
-import pl.com.bottega.photostock.sales.model.Money;
-import pl.com.bottega.photostock.sales.model.Product;
+import pl.com.bottega.photostock.sales.model.Client;
 import pl.com.bottega.photostock.sales.model.Reservation;
 import pl.com.bottega.photostock.sales.model.ReservationRepository;
-import pl.com.bottega.photostock.sales.model.products.Picture;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -23,6 +21,15 @@ public class FakeReservationRepository implements ReservationRepository {
         if (reservation == null)
             throw new RuntimeException("reservation " + nr + " does not exist");//TODO wprowadzić wyjątek DataDoesNotExistsException
         return reservation;
+    }
+
+    @Override
+    public Reservation findOpenedPer(Client client) {
+        for (Reservation reservation : fakeDatabase.values()){
+            if (reservation.getOwner().equals(client) && !reservation.isClosed())
+                return reservation;
+        }
+        return null;
     }
 
     @Override

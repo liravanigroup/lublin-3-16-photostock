@@ -9,8 +9,11 @@ import org.junit.Test;
 public class PurchaseProcessTest {
 
     private static final String STANDARD_USER_NR = "nr1";
+    private static final String LAME_USER_NR = "nr2";
+
     private static final String AVAILABLE_PRODUCT_NR = "nr1";
 
+    /*
     @Test
     public void shouldCreateEmptyReservationForStandardClient(){
         //given
@@ -20,28 +23,30 @@ public class PurchaseProcessTest {
         String reservationNr = purchaseProcess.create(STANDARD_USER_NR);
         //then
         Assert.assertNotEquals(reservationNr, "");
-    }
+    }*/
 
     @Test
     public void shouldAddAvailableProduct(){
         //given
         PurchaseProcess purchaseProcess = new PurchaseProcess();
-        String reservationNr = purchaseProcess.create(STANDARD_USER_NR);
+        //String reservationNr = purchaseProcess.create(STANDARD_USER_NR);
 
         //when
-        purchaseProcess.add(reservationNr, AVAILABLE_PRODUCT_NR);
+        purchaseProcess.add(STANDARD_USER_NR, AVAILABLE_PRODUCT_NR);
         //then
+
+        //teardown
     }
 
     @Test()
     public void canNotAddAlreadyAddedProduct(){
         //given
         PurchaseProcess purchaseProcess = new PurchaseProcess();
-        String reservationNr = purchaseProcess.create(STANDARD_USER_NR);
-        purchaseProcess.add(reservationNr, AVAILABLE_PRODUCT_NR);
+        //String reservationNr = purchaseProcess.create(STANDARD_USER_NR);
+        purchaseProcess.add(LAME_USER_NR, AVAILABLE_PRODUCT_NR);
         //when
         try {
-            purchaseProcess.add(reservationNr, AVAILABLE_PRODUCT_NR);
+            purchaseProcess.add(LAME_USER_NR, AVAILABLE_PRODUCT_NR);
             Assert.fail();
         }
         catch(IllegalArgumentException ex){

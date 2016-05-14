@@ -3,8 +3,6 @@ package pl.com.bottega.photostock.sales.infrastructure.repositories;
 import pl.com.bottega.photostock.sales.model.Client;
 import pl.com.bottega.photostock.sales.model.ClientRepository;
 import pl.com.bottega.photostock.sales.model.Money;
-import pl.com.bottega.photostock.sales.model.Product;
-import pl.com.bottega.photostock.sales.model.products.Picture;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,8 +15,11 @@ public class FakeClientRepository implements ClientRepository {
 
     static{
         Client c1 = new Client("nr1", "czeslaw", "adres", new Money(10));
+        Client c2 = new Client("nr2", "lama", "lamerski", new Money(1000));
+
 
         fakeDatabase.put(c1.getNumber(), c1);
+        fakeDatabase.put(c2.getNumber(), c2);
     }
 
     @Override

@@ -9,6 +9,7 @@ public class Reservation extends Object{
     private String number;
     private Client owner;
     private List<Product> items = new LinkedList<>();
+    private boolean closed;
 
     public Reservation(Client owner) {
         this.owner = owner;
@@ -60,5 +61,13 @@ public class Reservation extends Object{
 
     public Client getOwner() {
         return owner;
+    }
+
+    public void close() {
+        closed = true;
+    }
+
+    public boolean isClosed() {
+        return closed;
     }
 }
