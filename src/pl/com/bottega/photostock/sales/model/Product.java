@@ -10,6 +10,7 @@ public interface Product {
     void reservePer(Client client);
     void unReservePer(Client client);
     String getNumber();
-
     void setNumber(String number);
+    void deactivate();
+    void activate();
 }

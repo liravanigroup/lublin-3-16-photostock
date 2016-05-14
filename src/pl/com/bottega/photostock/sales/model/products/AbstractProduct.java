@@ -20,6 +20,16 @@ public abstract class AbstractProduct implements Product{
     }
 
     @Override
+    public void activate() {
+        available = true;
+    }
+
+    @Override
+    public void deactivate() {
+        available = false;
+    }
+
+    @Override
     public boolean isAvailable() {
         return available;
     }
