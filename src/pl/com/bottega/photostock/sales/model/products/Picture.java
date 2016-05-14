@@ -17,4 +17,7 @@ public class Picture extends AbstractProduct{
     }
 
 
+    public String[] getTags() {
+        return tags;
+    }
 }
