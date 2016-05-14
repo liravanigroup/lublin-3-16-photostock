@@ -80,5 +80,6 @@ public class AcceptanceStory {
 
         //użytkownik przegląda swoje zakupy
         List<Purchase> purchases = clientManagement.findPurchases(clientNr);
+        Assert.assertEquals(1, purchases.size());
     }
 }
