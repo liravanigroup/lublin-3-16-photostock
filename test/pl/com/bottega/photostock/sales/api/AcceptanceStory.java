@@ -15,14 +15,14 @@ import java.util.List;
 public class AcceptanceStory {
     private static final Money INITIAL_MONEY = new Money(50);
 
-    public static final Money PRICE_1 = new Money(10);
-    public static final Money PRICE_2 = new Money(20);
-    public static final Money PRICE_3 = new Money(30);
+    private static final Money PRICE_1 = new Money(10);
+    private static final Money PRICE_2 = new Money(20);
+    private static final Money PRICE_3 = new Money(30);
 
-    public static final Money TOTAL_COST = PRICE_1.add(PRICE_2).add(PRICE_3);
+    private static final Money TOTAL_COST = PRICE_1.add(PRICE_2).add(PRICE_3);
 
     //tyle udzielimy limity kredytu aby wysatrczyło na różnicą mędzy kosztem a tym co ma klient
-    public static final Money CREDIT_LIMIT = TOTAL_COST.substract(INITIAL_MONEY);
+    private static final Money CREDIT_LIMIT = TOTAL_COST.substract(INITIAL_MONEY);
 
 
     private ProductsCatalog productsCatalog = new ProductsCatalog();
