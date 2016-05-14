@@ -1,8 +1,6 @@
 package pl.com.bottega.photostock.sales.model.client;
 
 import pl.com.bottega.photostock.sales.model.Money;
-import pl.com.bottega.photostock.sales.model.client.Payer;
-import pl.com.bottega.photostock.sales.model.client.PayerStrategy;
 
 /**
  * Created by Slawek on 23/04/16.
@@ -10,7 +8,7 @@ import pl.com.bottega.photostock.sales.model.client.PayerStrategy;
 public class StandardPayerStrategy implements PayerStrategy {
     @Override
     public boolean canAfford(Payer payer, Money value) {
-        return payer.getAmount().gt(value);
+        return payer.getAmount().ge(value);
     }
 
     @Override
