@@ -1,9 +1,5 @@
 package pl.com.bottega.photostock.sales.application.servlet;
 
-import pl.com.bottega.photostock.sales.model.Client;
-import pl.com.bottega.photostock.sales.model.Money;
-import pl.com.bottega.photostock.sales.model.Offer;
-import pl.com.bottega.photostock.sales.model.Reservation;
 import pl.com.bottega.photostock.sales.api.PurchaseProcess;
 
 import javax.servlet.ServletException;
@@ -12,8 +8,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.io.PrintWriter;
 
 /**
  * Created by Slawek on 19/04/16.
@@ -25,6 +19,7 @@ public class PurchaseServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse response) throws ServletException, IOException {
+        /*
         String prodNr = req.getParameter("prodNr");
         String reservationNr = req.getParameter("resNr");
 
@@ -39,5 +34,6 @@ public class PurchaseServlet extends HttpServlet {
         out.println(offer.getTotalCost().toString());
         //out.println(prodNr + " " + reservationNr);
         out.close();
+        */
     }
 }
