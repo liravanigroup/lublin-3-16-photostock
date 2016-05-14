@@ -13,7 +13,17 @@ import java.util.List;
  * Created by Slawek on 14/05/16.
  */
 public class AcceptanceStory {
-    private static final Money INITIAL_MONEY = new Money(100);
+    private static final Money INITIAL_MONEY = new Money(50);
+
+    public static final Money PRICE_1 = new Money(10);
+    public static final Money PRICE_2 = new Money(20);
+    public static final Money PRICE_3 = new Money(30);
+
+    public static final Money TOTAL_COST = PRICE_1.add(PRICE_2).add(PRICE_3);
+
+    //tyle udzielimy limity kredytu aby wysatrczyło na różnicą mędzy kosztem a tym co ma klient
+    public static final Money CREDIT_LIMIT = TOTAL_COST.substract(INITIAL_MONEY);
+
 
     private ProductsCatalog productsCatalog = new ProductsCatalog();
     private ClientManagement clientManagement = new ClientManagement();
@@ -24,13 +34,17 @@ public class AcceptanceStory {
     @Test
     public void story(){
         //admin dodaje produkty do oferty
-        adminPanel.addPicture(new Money(10), new String[]{"ford", "mustang"});
-        adminPanel.addPicture(new Money(20), new String[]{"bmw", "m6"});
-        adminPanel.addPicture(new Money(30), new String[]{"fiat", "multipla"});
+        adminPanel.addPicture(PRICE_1, new String[]{"ford", "mustang"});
+        adminPanel.addPicture(PRICE_2, new String[]{"bmw", "m6"});
+        adminPanel.addPicture(PRICE_3, new String[]{"fiat", "multipla"});
 
         //użytkownik się rejestruje i doładowuje konto
         String clientNr = clientManagement.register("nazwa 1", "login 1", "email@server.com", "addresss");
         clientManagement.recharge(clientNr, INITIAL_MONEY);
+
+        //admin awansuje klienta i daje mi limit kredytu
+        adminPanel.promoteClient(clientNr);
+        adminPanel.changeCreditLimit(clientNr, CREDIT_LIMIT);
 
         //użytkownik przeszukuje katalog dostępnych produktów
         List<Product> products = productsCatalog.find(null, null, null, null);
@@ -48,7 +62,7 @@ public class AcceptanceStory {
 
         //użytkownik przegląda ofertę
         Offer offer = purchaseProcess.calculateOffer(clientNr);
-        Assert.assertEquals(new Money(60), offer.getTotalCost());
+        Assert.assertEquals(TOTAL_COST, offer.getTotalCost());
 
         //użytkownik zatwierdza ofertę
         purchaseProcess.confirm(clientNr);

@@ -56,12 +56,12 @@ public class PurchaseProcess {
         confirm(client, reservation);
     }
 
-    /*
+
     public void confirm(String reservationNr, String payerNr){
         Reservation reservation = reservationRepository.load(reservationNr);
-        Client client = clientRepository.load(payerNr);
-        confirm(client, reservation);
-    }*/
+        Client payer = clientRepository.load(payerNr);
+        confirm(payer, reservation);
+    }
 
     private void confirm(Client client, Reservation reservation){
         Offer offer = reservation.generateOffer();
@@ -74,6 +74,9 @@ public class PurchaseProcess {
 
             purchaseRepository.save(purchase);
             clientRepository.save(client);
+        }
+        else{
+            throw new IllegalStateException("Client can not afford " + offer.getTotalCost());
         }
     }
 
