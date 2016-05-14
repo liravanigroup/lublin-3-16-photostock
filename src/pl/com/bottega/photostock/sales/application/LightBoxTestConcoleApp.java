@@ -3,6 +3,7 @@ package pl.com.bottega.photostock.sales.application;
 import pl.com.bottega.photostock.sales.model.Client;
 import pl.com.bottega.photostock.sales.model.LightBox;
 import pl.com.bottega.photostock.sales.model.Money;
+import pl.com.bottega.photostock.sales.model.client.StandardPayerStrategy;
 import pl.com.bottega.photostock.sales.model.products.Picture;
 
 /**
@@ -10,7 +11,7 @@ import pl.com.bottega.photostock.sales.model.products.Picture;
  */
 public class LightBoxTestConcoleApp {
     public static void main(String[] args){
-        Client client = new Client("nr1", "Pan janusz", "tajny adres", new Money(20));
+        Client client = new Client("nr1", "Pan janusz", "tajny adres", new Money(20), new StandardPayerStrategy());
         LightBox lightBoxJanusza = new LightBox(client);
 
         Picture lumberJack = new Picture("nr1", new Money(2), null, true);

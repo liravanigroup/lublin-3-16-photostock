@@ -10,7 +10,7 @@ import pl.com.bottega.photostock.sales.model.client.PayerStrategy;
  * Created by Slawek on 24/04/16.
  */
 public class Client2CreditedTest {
-    private Client2 client;
+    private Client client;
 
     @Before
     public void init(){
@@ -19,7 +19,7 @@ public class Client2CreditedTest {
 
         PayerStrategy payerStrategy = new CreditedPayerStrategy(creditLimit, debt);
 
-        client = new Client2("nr1", "imie", "adres", new Money(10), payerStrategy);
+        client = new Client("nr1", "imie", "adres", new Money(10), payerStrategy);
     }
 
     @Test

@@ -4,9 +4,7 @@ import pl.com.bottega.photostock.sales.model.Client;
 import pl.com.bottega.photostock.sales.model.Reservation;
 import pl.com.bottega.photostock.sales.model.ReservationRepository;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Created by Slawek on 23/04/16.
@@ -30,6 +28,16 @@ public class FakeReservationRepository implements ReservationRepository {
                 return reservation;
         }
         return null;
+    }
+
+    @Override
+    public List<Reservation> find(String clientNr) {
+        List<Reservation> result = new LinkedList<>();
+        for (Reservation reservation : fakeDatabase.values()){
+            if (reservation.getOwner().getNumber().equals(clientNr))
+                result.add(reservation);
+        }
+        return result;
     }
 
     @Override

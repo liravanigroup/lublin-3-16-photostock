@@ -2,6 +2,7 @@ package pl.com.bottega.photostock.sales.application;
 
 
 import pl.com.bottega.photostock.sales.model.*;
+import pl.com.bottega.photostock.sales.model.client.StandardPayerStrategy;
 import pl.com.bottega.photostock.sales.model.products.Picture;
 
 import java.util.List;
@@ -15,7 +16,7 @@ public class ConcoleApplication {
 
         //=====symulcja dostępu do bazy danych===================
 
-        Client client = new Client("nr1", "Kowalski", "ul x", new Money(100)); //klient posiada 100 creditów
+        Client client = new Client("nr1", "Kowalski", "ul x", new Money(100), new StandardPayerStrategy()); //klient posiada 100 creditów
 
         //zdjęcia kosztują w sumie 17 creditów
 

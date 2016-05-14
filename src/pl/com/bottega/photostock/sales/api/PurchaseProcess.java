@@ -39,22 +39,29 @@ public class PurchaseProcess {
         productRepository.save(product);
     }
 
-    public Offer calculateOffer(String reservationNr){
-        Reservation reservation = reservationRepository.load(reservationNr);
+    public Offer calculateOffer(String clientNr){
+        Client client = clientRepository.load(clientNr);
+        Reservation reservation = reservationRepository.findOpenedPer(client);
+        if (reservation == null)
+            throw new IllegalStateException("client does not have opened reservation");
         return reservation.generateOffer();
     }
 
-    public void confirm(String reservationNr){
-        Reservation reservation = reservationRepository.load(reservationNr);
-        Client client = reservation.getOwner();
+    public void confirm(String clientNr){
+        Client client = clientRepository.load(clientNr);
+        Reservation reservation = reservationRepository.findOpenedPer(client);
+        if (reservation == null)
+            throw new IllegalStateException("client does not have opened reservation");
+
         confirm(client, reservation);
     }
 
+    /*
     public void confirm(String reservationNr, String payerNr){
         Reservation reservation = reservationRepository.load(reservationNr);
         Client client = clientRepository.load(payerNr);
         confirm(client, reservation);
-    }
+    }*/
 
     private void confirm(Client client, Reservation reservation){
         Offer offer = reservation.generateOffer();

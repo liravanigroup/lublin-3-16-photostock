@@ -1,6 +1,5 @@
 package pl.com.bottega.photostock.sales.model.client;
 
-import pl.com.bottega.photostock.sales.model.Client2;
 import pl.com.bottega.photostock.sales.model.Money;
 
 /**

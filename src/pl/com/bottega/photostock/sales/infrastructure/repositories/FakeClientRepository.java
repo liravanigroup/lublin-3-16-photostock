@@ -6,6 +6,7 @@ import pl.com.bottega.photostock.sales.model.Money;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * Created by Slawek on 23/04/16.
@@ -32,6 +33,8 @@ public class FakeClientRepository implements ClientRepository {
 
     @Override
     public void save(Client client) {
+        if (client.getNumber() == null)
+            client.setNumber(UUID.randomUUID().toString());
         fakeDatabase.put(client.getNumber(), client);
     }
 }

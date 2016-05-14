@@ -1,8 +1,6 @@
 package pl.com.bottega.photostock.sales.model.client;
 
 import pl.com.bottega.photostock.sales.model.Money;
-import pl.com.bottega.photostock.sales.model.client.Payer;
-import pl.com.bottega.photostock.sales.model.client.PayerStrategy;
 
 /**
  * Created by Slawek on 23/04/16.
@@ -44,5 +42,9 @@ public class CreditedPayerStrategy implements PayerStrategy {
             this.debt = this.debt.substract(amount);
             payer.setAmount(value.getZero());
         }
+    }
+
+    public Money getDebt() {
+        return debt;
     }
 }
