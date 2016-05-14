@@ -38,7 +38,7 @@ public class AcceptanceStory {
         adminPanel.addPicture(PRICE_2, new String[]{"bmw", "m6"});
         adminPanel.addPicture(PRICE_3, new String[]{"fiat", "multipla"});
         //ten produkt stanie sie pozniej niedostepny
-        adminPanel.addPicture(PRICE_3, new String[]{"lamborgnini", "huracan"});
+        adminPanel.addPicture(PRICE_3, new String[]{"lamborghini", "huracan"});
 
 
         //użytkownik się rejestruje i doładowuje konto
