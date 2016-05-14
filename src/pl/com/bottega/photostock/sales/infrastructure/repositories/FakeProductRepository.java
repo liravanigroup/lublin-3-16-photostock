@@ -34,6 +34,8 @@ public class FakeProductRepository implements ProductRepository {
 
     @Override
     public void save(Product product) {
+        if (product.getNumber() == null)
+            product.setNumber(UUID.randomUUID().toString());
         fakeDatabase.put(product.getNumber(), product);
     }
 

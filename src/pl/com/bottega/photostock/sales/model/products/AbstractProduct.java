@@ -9,7 +9,7 @@ import pl.com.bottega.photostock.sales.model.Product;
  */
 public abstract class AbstractProduct implements Product{
 
-    private final String number;
+    private String number;
     private boolean available;
     private Money price;
 
@@ -47,6 +47,11 @@ public abstract class AbstractProduct implements Product{
     @Override
     public String getNumber() {
         return number;
+    }
+
+    @Override
+    public void setNumber(String number) {
+        this.number = number;
     }
 
     @Override

@@ -14,6 +14,7 @@ public class LightBox implements Cloneable{
     private Client owner;
     private List<Picture> items = new LinkedList<>();
     private boolean closed = false;
+    private String number;
 
     public LightBox(Client owner){
         this.owner = owner;
@@ -103,5 +104,21 @@ public class LightBox implements Cloneable{
         LightBox result = (LightBox) super.clone();
         result.items = (List)((LinkedList)items).clone();
         return result;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public List<Picture> getItems() {
+        return items;
+    }
+
+    public Client getOwner() {
+        return owner;
     }
 }

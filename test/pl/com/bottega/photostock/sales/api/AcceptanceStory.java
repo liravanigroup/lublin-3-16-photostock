@@ -35,15 +35,20 @@ public class AcceptanceStory {
         //użytkownik przeszukuje katalog dostępnych produktów
         List<Product> products = productsCatalog.find(null, null, null, null);
 
-        //użytkonik kupuje wszystko
-        for(Product product : products)
-            purchaseProcess.add(clientNr, product.getNumber());
+        //użytkownik dodaje pierwszy produkt do lbx
+        String lightBoxNr = lightBoxManagement.createLightbox(clientNr, "lightbox 1");
+        lightBoxManagement.add(products.get(0).getNumber(), lightBoxNr);
 
-        //TODO dodanie do LBX i przeniesienie do rezerwacji
+        //użytkonik dodaje drugi i trzeci produkt do rezerwacji
+        purchaseProcess.add(clientNr, products.get(1).getNumber());
+        purchaseProcess.add(clientNr, products.get(2).getNumber());
+
+        //użytkownik dodaje do rezerwacji jeszcze produkty z lightboxa
+        lightBoxManagement.addAllToReservation(lightBoxNr);
 
         //użytkownik przegląda ofertę
         Offer offer = purchaseProcess.calculateOffer(clientNr);
-        Assert.assertEquals(new Money(30), offer.getTotalCost());
+        Assert.assertEquals(new Money(60), offer.getTotalCost());
 
         //użytkownik zatwierdza ofertę
         purchaseProcess.confirm(clientNr);
