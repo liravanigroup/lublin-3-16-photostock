@@ -12,4 +12,6 @@ public interface Product {
     String getNumber();
 
     void setNumber(String number);
+
+    String[] export();
 }

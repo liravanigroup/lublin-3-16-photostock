@@ -6,9 +6,7 @@ import pl.com.bottega.photostock.sales.model.ProductRepository;
 import pl.com.bottega.photostock.sales.model.products.Clip;
 import pl.com.bottega.photostock.sales.model.products.Picture;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.List;
 
 /**
@@ -30,6 +28,8 @@ public class FileProductRepository implements ProductRepository {
             readLine(is);
             String line;
             while ((line = readLine(is)) != null) {
+                if (line.trim().length() == 0)
+                    return null;
                 Product product;
                 product = parseProduct(line);
                 if (product.getNumber().equals(nr))
@@ -48,7 +48,7 @@ public class FileProductRepository implements ProductRepository {
         int priceCents = Integer.parseInt(components[1]);
         Money price = new Money(priceCents / 100, priceCents % 100, components[2]);
         boolean available = Boolean.parseBoolean(components[3]);
-        if (components[6].equals("Picture")) {
+        if (components[6].startsWith("Picture")) {
             String[] tags = components[5].split(" ");
             product = new Picture(number, price, tags, available);
         } else {
@@ -69,7 +69,17 @@ public class FileProductRepository implements ProductRepository {
 
     @Override
     public void save(Product product) {
-
+        File f = new File(this.path);
+        boolean newRepo = !f.exists();
+        try (OutputStream os = new FileOutputStream(this.path, true)) {
+            if(newRepo)
+                os.write("number,priceCents,priceCurrency,available,length,tags,type\r\n".getBytes());
+            String[] productExported = product.export();
+            String csvLine = String.join(",", productExported) + "\r\n";
+            os.write(csvLine.getBytes());
+        } catch (Exception ex) {
+            throw new DataAccessException(ex);
+        }
     }
 
     @Override

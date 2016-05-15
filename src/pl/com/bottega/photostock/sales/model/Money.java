@@ -104,4 +104,11 @@ public class Money {
     }
 
 
+    public int cents() {
+        return (int) (value * 100);
+    }
+
+    public String currency() {
+        return currency;
+    }
 }
