@@ -15,14 +15,14 @@ import java.util.List;
 public class AcceptanceStory {
     private static final Money INITIAL_MONEY = new Money(50);
 
-    public static final Money PRICE_1 = new Money(10);
-    public static final Money PRICE_2 = new Money(20);
-    public static final Money PRICE_3 = new Money(30);
+    private static final Money PRICE_1 = new Money(10);
+    private static final Money PRICE_2 = new Money(20);
+    private static final Money PRICE_3 = new Money(30);
 
-    public static final Money TOTAL_COST = PRICE_1.add(PRICE_2).add(PRICE_3);
+    private static final Money TOTAL_COST = PRICE_1.add(PRICE_2).add(PRICE_3);
 
     //tyle udzielimy limity kredytu aby wysatrczyło na różnicą mędzy kosztem a tym co ma klient
-    public static final Money CREDIT_LIMIT = TOTAL_COST.substract(INITIAL_MONEY);
+    private static final Money CREDIT_LIMIT = TOTAL_COST.substract(INITIAL_MONEY);
 
 
     private ProductsCatalog productsCatalog = new ProductsCatalog();
@@ -37,6 +37,9 @@ public class AcceptanceStory {
         adminPanel.addPicture(PRICE_1, new String[]{"ford", "mustang"});
         adminPanel.addPicture(PRICE_2, new String[]{"bmw", "m6"});
         adminPanel.addPicture(PRICE_3, new String[]{"fiat", "multipla"});
+        //ten produkt stanie sie pozniej niedostepny
+        adminPanel.addPicture(PRICE_3, new String[]{"lamborghini", "huracan"});
+
 
         //użytkownik się rejestruje i doładowuje konto
         String clientNr = clientManagement.register("nazwa 1", "login 1", "email@server.com", "addresss");
@@ -54,13 +57,21 @@ public class AcceptanceStory {
         lightBoxManagement.add(products.get(0).getNumber(), lightBoxNr);
 
         //użytkonik dodaje drugi i trzeci produkt do rezerwacji
+        //oraz czwarty, ktory stanie sie niedostepny
         purchaseProcess.add(clientNr, products.get(1).getNumber());
         purchaseProcess.add(clientNr, products.get(2).getNumber());
+        //jego niedługo usuniemy z oferty
+        purchaseProcess.add(clientNr, products.get(3).getNumber());
+
 
         //użytkownik dodaje do rezerwacji jeszcze produkty z lightboxa
         lightBoxManagement.addAllToReservation(lightBoxNr);
 
-        //użytkownik przegląda ofertę
+        //admin usuwa czwarty produkt
+        adminPanel.changeAvability(products.get(3).getNumber(), false);
+
+        //użytkownik przegląda ofertę - w rezerwacji ma 4, ale w ofercie znajdą się 3 elementy
+        //gdyż jeden wlasnie usunieto
         Offer offer = purchaseProcess.calculateOffer(clientNr);
         Assert.assertEquals(TOTAL_COST, offer.getTotalCost());
 
@@ -69,5 +80,6 @@ public class AcceptanceStory {
 
         //użytkownik przegląda swoje zakupy
         List<Purchase> purchases = clientManagement.findPurchases(clientNr);
+        Assert.assertEquals(1, purchases.size());
     }
 }

@@ -1,11 +1,11 @@
 package pl.com.bottega.photostock.sales.api;
 
 import pl.com.bottega.photostock.sales.infrastructure.repositories.FakeClientRepository;
+import pl.com.bottega.photostock.sales.infrastructure.repositories.FakePurchaseRepository;
 import pl.com.bottega.photostock.sales.infrastructure.repositories.FakeReservationRepository;
 import pl.com.bottega.photostock.sales.model.*;
 import pl.com.bottega.photostock.sales.model.client.StandardPayerStrategy;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,6 +14,7 @@ import java.util.List;
 public class ClientManagement {
     private ClientRepository clientRepository = new FakeClientRepository();
     private ReservationRepository reservationRepository = new FakeReservationRepository();
+    private PurchaseRepository purchaseRepository = new FakePurchaseRepository();
 
     public String register(String name, String login, String email, String address){
         Client client = new Client(
@@ -35,6 +36,6 @@ public class ClientManagement {
     }
 
     public List<Purchase> findPurchases(String clientNr){
-        return new ArrayList<>();
+        return purchaseRepository.find(clientNr);
     }
 }

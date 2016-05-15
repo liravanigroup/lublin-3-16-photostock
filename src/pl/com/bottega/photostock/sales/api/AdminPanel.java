@@ -2,10 +2,7 @@ package pl.com.bottega.photostock.sales.api;
 
 import pl.com.bottega.photostock.sales.infrastructure.repositories.FakeClientRepository;
 import pl.com.bottega.photostock.sales.infrastructure.repositories.FakeProductRepository;
-import pl.com.bottega.photostock.sales.model.Client;
-import pl.com.bottega.photostock.sales.model.ClientRepository;
-import pl.com.bottega.photostock.sales.model.Money;
-import pl.com.bottega.photostock.sales.model.ProductRepository;
+import pl.com.bottega.photostock.sales.model.*;
 import pl.com.bottega.photostock.sales.model.client.CreditedPayerStrategy;
 import pl.com.bottega.photostock.sales.model.client.PayerStrategy;
 import pl.com.bottega.photostock.sales.model.products.Picture;
@@ -45,5 +42,14 @@ public class AdminPanel {
         }
 
         clientRepository.save(client);
+    }
+
+    public void changeAvability(String productNr, boolean available) {
+        Product product = productRepository.load(productNr);
+        if (available)
+            product.activate();
+        else
+            product.deactivate();
+        productRepository.save(product);
     }
 }

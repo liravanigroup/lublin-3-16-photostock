@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 
 /**
  * Created by Slawek on 19/04/16.
@@ -20,6 +19,7 @@ public class CreateServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse response) throws ServletException, IOException {
+        /*
         String clientNr = req.getParameter("clientNr");
 
         String resNr = purchaseProcess.create(clientNr);
@@ -30,5 +30,6 @@ public class CreateServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         out.println(resNr);
         out.close();
+        */
     }
 }

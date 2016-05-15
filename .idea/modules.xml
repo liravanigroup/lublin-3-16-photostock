@@ -4,7 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/stock.iml" filepath="$PROJECT_DIR$/stock.iml" />
       <module fileurl="file://$PROJECT_DIR$/web/web.iml" filepath="$PROJECT_DIR$/web/web.iml" />
-      <module fileurl="file://$PROJECT_DIR$/web2/web2.iml" filepath="$PROJECT_DIR$/web2/web2.iml" />
     </modules>
   </component>
 </project>

@@ -1,7 +1,5 @@
 package pl.com.bottega.photostock.sales.model;
 
-import pl.com.bottega.photostock.sales.model.products.Picture;
-
 import java.util.Date;
 import java.util.List;
 
@@ -30,5 +28,9 @@ public class Purchase {
 
     public void setNumber(String number) {
         this.number = number;
+    }
+
+    public Client getOwner() {
+        return owner;
     }
 }
