@@ -11,6 +11,8 @@ public interface Product {
     void unReservePer(Client client);
     String getNumber();
     void setNumber(String number);
+
+    String[] export();
     void deactivate();
     void activate();
 }
