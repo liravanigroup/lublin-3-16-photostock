@@ -18,8 +18,10 @@ public class AcceptanceStory {
     private static final Money PRICE_1 = new Money(10);
     private static final Money PRICE_2 = new Money(20);
     private static final Money PRICE_3 = new Money(30);
+    private static final Money PRICE_4 = new Money(40);
 
-    private static final Money TOTAL_COST = PRICE_1.add(PRICE_2).add(PRICE_3);
+
+    private static final Money TOTAL_COST = PRICE_1.add(PRICE_2).add(PRICE_3).add(PRICE_4);
 
     //tyle udzielimy limity kredytu aby wysatrczyło na różnicą mędzy kosztem a tym co ma klient
     private static final Money CREDIT_LIMIT = TOTAL_COST.substract(INITIAL_MONEY);
@@ -38,7 +40,7 @@ public class AcceptanceStory {
         adminPanel.addPicture(PRICE_2, new String[]{"bmw", "m6"});
         adminPanel.addPicture(PRICE_3, new String[]{"fiat", "multipla"});
         //ten produkt stanie sie pozniej niedostepny
-        adminPanel.addPicture(PRICE_3, new String[]{"lamborghini", "huracan"});
+        adminPanel.addPicture(PRICE_4, new String[]{"lamborghini", "huracan"});
 
 
         //użytkownik się rejestruje i doładowuje konto
@@ -73,7 +75,8 @@ public class AcceptanceStory {
         //użytkownik przegląda ofertę - w rezerwacji ma 4, ale w ofercie znajdą się 3 elementy
         //gdyż jeden wlasnie usunieto
         Offer offer = purchaseProcess.calculateOffer(clientNr);
-        Assert.assertEquals(TOTAL_COST, offer.getTotalCost());
+        Assert.assertEquals(TOTAL_COST.substract(products.get(3).calculatePrice()),
+                            offer.getTotalCost());
 
         //użytkownik zatwierdza ofertę
         purchaseProcess.confirm(clientNr);
