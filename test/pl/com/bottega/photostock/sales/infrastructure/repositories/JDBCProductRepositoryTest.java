@@ -1,5 +1,6 @@
 package pl.com.bottega.photostock.sales.infrastructure.repositories;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import pl.com.bottega.photostock.sales.model.Money;
@@ -24,7 +25,9 @@ public class JDBCProductRepositoryTest {
     public void setUp() throws Exception {
         // given
         Connection c = DriverManager.getConnection("jdbc:hsqldb:mem:stock", "SA", "");
+        dropTables(c);
         createProductsTable(c);
+        createTagsTable(c);
         insertTestProduct(c);
         c.close();
 
@@ -65,8 +68,41 @@ public class JDBCProductRepositoryTest {
         assertEquals(new Money(20.0, "PLN"), saved.calculatePrice());
     }
 
-    private void createProductsTable(Connection c) throws Exception {
+    @Test
+    public void shouldSaveProductWithTags() {
+        //given
+        Product picture = new Picture("nr2", new Money(20.0, "PLN"), new String[]{"one", "two", "three"}, false);
+
+        //when
+        repo.save(picture);
+
+        //then
+        Picture saved = (Picture) repo.load("nr2");
+        Assert.assertArrayEquals(new String[]{"one", "two", "three"}, saved.getTags());
+    }
+
+    @Test
+    public void shouldUpdateProductWithTags() {
+        //given
+        Product picture = new Picture("nr2", new Money(20.0, "PLN"), new String[]{"one", "two", "three"}, false);
+        Product pictureToUpdate = new Picture("nr2", new Money(20.0, "PLN"), new String[]{"one", "three"}, false);
+
+        //when
+        repo.save(picture);
+        repo.save(pictureToUpdate);
+
+        //then
+        Picture updated = (Picture) repo.load("nr2");
+        Assert.assertArrayEquals(new String[]{"one", "three"}, updated.getTags());
+    }
+
+    private void dropTables(Connection c) throws Exception {
+        c.createStatement().executeUpdate("DROP TABLE ProductsTags IF EXISTS");
+        c.createStatement().executeUpdate("DROP TABLE Tags IF EXISTS");
         c.createStatement().executeUpdate("DROP TABLE Products IF EXISTS");
+    }
+
+    private void createProductsTable(Connection c) throws Exception {
         c.createStatement().executeUpdate("CREATE TABLE Products (\n" +
                 "  id INTEGER IDENTITY PRIMARY KEY,\n" +
                 "  number VARCHAR(20) NOT NULL,\n" +
@@ -78,8 +114,21 @@ public class JDBCProductRepositoryTest {
                 ");");
     }
 
+    private void createTagsTable(Connection c) throws Exception {
+        c.createStatement().executeUpdate("CREATE TABLE Tags (\n" +
+                "  id INTEGER IDENTITY PRIMARY KEY,\n" +
+                "  name VARCHAR(255) NOT NULL\n" +
+                ");");
+        c.createStatement().executeUpdate("CREATE TABLE ProductsTags (\n" +
+                "  productId INTEGER FOREIGN KEY REFERENCES Products(id),\n" +
+                "  tagId INTEGER FOREIGN KEY REFERENCES Tags(id),\n" +
+                "  PRIMARY KEY (productId, tagId)\n" +
+                ");");
+    }
+
     private void insertTestProduct(Connection c) throws Exception {
         c.createStatement().executeUpdate("INSERT INTO Products (number, available, priceCents, priceCurrency, length, type) VALUES ('nr1', true, 200, 'USD', NULL, 'Picture');");
     }
+
 
 }
