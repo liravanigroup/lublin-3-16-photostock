@@ -1,5 +1,7 @@
 package pl.com.bottega.photostock.sales.model;
 
+import com.google.common.base.Objects;
+
 import java.util.Date;
 import java.util.List;
 
@@ -32,5 +34,31 @@ public class Purchase {
 
     public Client getOwner() {
         return owner;
+    }
+
+    /*@Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Purchase purchase = (Purchase) o;
+        return Objects.equal(owner, purchase.owner) &&
+                Objects.equal(createDate, purchase.createDate) &&
+                Objects.equal(number, purchase.number) &&
+                Objects.equal(items, purchase.items);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(owner, createDate, number, items);
+    }*/
+
+    @Override
+    public String toString() {
+        return Objects.toStringHelper(this)
+                .add("owner", owner)
+                .add("createDate", createDate)
+                .add("number", number)
+                .add("items", items)
+                .toString();
     }
 }

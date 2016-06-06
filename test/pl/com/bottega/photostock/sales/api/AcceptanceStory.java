@@ -1,7 +1,9 @@
 package pl.com.bottega.photostock.sales.api;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
+import pl.com.bottega.photostock.sales.infrastructure.repositories.FakeProductRepository;
 import pl.com.bottega.photostock.sales.model.Money;
 import pl.com.bottega.photostock.sales.model.Offer;
 import pl.com.bottega.photostock.sales.model.Product;

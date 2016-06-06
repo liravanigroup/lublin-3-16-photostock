@@ -3,6 +3,7 @@ package pl.com.bottega.photostock.sales.infrastructure.repositories;
 import pl.com.bottega.photostock.sales.model.Money;
 import pl.com.bottega.photostock.sales.model.Product;
 import pl.com.bottega.photostock.sales.model.ProductRepository;
+import pl.com.bottega.photostock.sales.model.products.Picture;
 
 import java.util.*;
 
@@ -11,10 +12,10 @@ import java.util.*;
  */
 public class FakeProductRepository implements ProductRepository {
 
-    private static Map<String, Product> fakeDatabase = new HashMap<>();
+    private static Map<String, Product> fakeDatabase = new LinkedHashMap<>();
 
-    /*
-    static{
+
+    /*static {
         Picture p1 = new Picture("nr1", new Money(10), new String[]{"ford", "mustang"}, true);
         Picture p2 = new Picture("nr2", new Money(20), new String[]{"fiat", "multipla"}, true);
         Picture p3 = new Picture("nr3", new Money(20), new String[]{"bmw", "m6"}, true);
@@ -49,8 +50,8 @@ public class FakeProductRepository implements ProductRepository {
         if (emptyFilter(tags, author, minPrice, maxPrice, acceptNotavailable))
             return new ArrayList<>(fakeDatabase.values());
 
-        for(Product product : fakeDatabase.values()){
-            if (! (acceptNotavailable || product.isAvailable()))
+        for (Product product : fakeDatabase.values()) {
+            if (!(acceptNotavailable || product.isAvailable()))
                 continue;
 
             if (minPrice != null && product.calculatePrice().gt(minPrice))
@@ -68,5 +69,9 @@ public class FakeProductRepository implements ProductRepository {
                 (tags == null || tags.length == 0)
                 && author == null
                 && minPrice == null && maxPrice == null;
+    }
+
+    public static void clear() {
+        fakeDatabase.clear();
     }
 }

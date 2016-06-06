@@ -5,6 +5,8 @@ import pl.com.bottega.photostock.sales.model.client.Payer;
 import pl.com.bottega.photostock.sales.model.client.PayerStrategy;
 import pl.com.bottega.photostock.sales.model.client.StandardPayerStrategy;
 
+import static com.google.common.base.Preconditions.checkState;
+
 
 /**
  * Created by Slawek on 12/03/16.
@@ -55,8 +57,7 @@ public class Client {
 
 
     public void charge(Money price, String cause) {
-        if (! payerStrategy.canAfford(payer, price))
-            throw new IllegalStateException("can not afford " + price);
+        checkState(payerStrategy.canAfford(payer, price), "cannot afford %s", price);
         payerStrategy.charge(payer, price, cause);
     }
 

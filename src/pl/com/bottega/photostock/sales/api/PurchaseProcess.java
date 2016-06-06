@@ -6,6 +6,9 @@ import pl.com.bottega.photostock.sales.infrastructure.repositories.FakePurchaseR
 import pl.com.bottega.photostock.sales.infrastructure.repositories.FakeReservationRepository;
 import pl.com.bottega.photostock.sales.model.*;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+import static com.google.common.base.Preconditions.checkState;
+
 /**
  * Created by Slawek on 23/04/16.
  */
@@ -16,7 +19,7 @@ public class PurchaseProcess {
     private ProductRepository productRepository = new FakeProductRepository();
     private PurchaseRepository purchaseRepository = new FakePurchaseRepository();
 
-    private Reservation create(String clientNr){
+    private Reservation create(String clientNr) {
         Client client = clientRepository.load(clientNr);
 
         Reservation reservation = new Reservation(client);
@@ -25,10 +28,10 @@ public class PurchaseProcess {
         return reservation;
     }
 
-    public void add(String clientNr, String productNumber){
+    public void add(String clientNr, String productNumber) {
         Client client = clientRepository.load(clientNr);
         Reservation reservation = reservationRepository.findOpenedPer(client);
-        if (reservation == null){
+        if (reservation == null) {
             reservation = create(clientNr);
         }
         Product product = productRepository.load(productNumber);
@@ -39,45 +42,39 @@ public class PurchaseProcess {
         productRepository.save(product);
     }
 
-    public Offer calculateOffer(String clientNr){
+    public Offer calculateOffer(String clientNr) {
         Client client = clientRepository.load(clientNr);
         Reservation reservation = reservationRepository.findOpenedPer(client);
-        if (reservation == null)
-            throw new IllegalStateException("client does not have opened reservation");
+        checkNotNull(reservation, "client does not have opened reservation");
         return reservation.generateOffer();
     }
 
-    public void confirm(String clientNr){
+    public void confirm(String clientNr) {
         Client client = clientRepository.load(clientNr);
         Reservation reservation = reservationRepository.findOpenedPer(client);
-        if (reservation == null)
-            throw new IllegalStateException("client does not have opened reservation");
+        checkNotNull(reservation, "client does not have opened reservation");
 
         confirm(client, reservation);
     }
 
 
-    public void confirm(String reservationNr, String payerNr){
+    public void confirm(String reservationNr, String payerNr) {
         Reservation reservation = reservationRepository.load(reservationNr);
         Client payer = clientRepository.load(payerNr);
         confirm(payer, reservation);
     }
 
-    private void confirm(Client client, Reservation reservation){
+    private void confirm(Client client, Reservation reservation) {
         Offer offer = reservation.generateOffer();
-        if (client.canAfford(offer.getTotalCost())){
-            client.charge(offer.getTotalCost(), "za rezerwację " + reservation.getNumber());
+        checkState(client.canAfford(offer.getTotalCost()), "Client cannot afford %s", offer.getTotalCost());
+        client.charge(offer.getTotalCost(), "za rezerwację " + reservation.getNumber());
 
-            Purchase purchase = new Purchase(client, offer.getItems());
+        Purchase purchase = new Purchase(client, offer.getItems());
 
-            reservation.close();
+        reservation.close();
 
-            purchaseRepository.save(purchase);
-            clientRepository.save(client);
-        }
-        else{
-            throw new IllegalStateException("Client can not afford " + offer.getTotalCost());
-        }
+        purchaseRepository.save(purchase);
+        clientRepository.save(client);
     }
 
 }

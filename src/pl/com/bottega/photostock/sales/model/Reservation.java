@@ -1,5 +1,10 @@
 package pl.com.bottega.photostock.sales.model;
 
+import com.google.common.base.Predicate;
+import com.google.common.collect.Collections2;
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
+
 import java.util.*;
 
 /**
@@ -33,13 +38,12 @@ public class Reservation extends Object{
     }
 
     public Offer generateOffer(){
-        List<Product> result = new ArrayList<>();
-
-        for(Product product : items){
-            if (product.isAvailable()){
-                result.add(product);
+        List<Product> result = Lists.newLinkedList(Iterables.filter(items, new Predicate<Product>() {
+            @Override
+            public boolean apply(Product product) {
+                return product.isAvailable();
             }
-        }
+        }));
 
         Comparator<Product> comparator = new PriceAndNameProductComparator();
         Collections.sort(result, comparator);
