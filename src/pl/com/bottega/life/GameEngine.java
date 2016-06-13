@@ -1,4 +1,4 @@
-package pl.com.bottega.documentmanagement.life;
+package pl.com.bottega.life;
 
 /**
  * Created by maciuch on 11.06.16.
